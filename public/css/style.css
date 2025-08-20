@@ -1,0 +1,162 @@
+/* public/css/style.css */
+
+/* General Styling */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 1)), url('https://images.unsplash.com/photo-1553440569-b50674611252?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Header & Navbar */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+.logo span {
+    font-weight: 400;
+}
+
+.navbar a {
+    margin-left: 30px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+}
+
+.navbar a:hover, .navbar a.active {
+    color: #d9252c;
+    border-bottom-color: #d9252c;
+}
+
+/* Main Content & Hero */
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero h1 {
+    font-size: 4em;
+    font-weight: 800;
+    margin: 0;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 0 15px rgba(217, 37, 44, 0.5);
+}
+
+.hero h2 {
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-top: 5px;
+    color: #ccc;
+}
+
+/* Car Catalog */
+.catalog-container {
+    padding: 20px 40px 80px 40px;
+}
+
+.car-catalog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.car-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.car-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(217, 37, 44, 0.3);
+}
+
+.car-card img {
+    max-width: 100%;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.car-card h3 {
+    margin: 10px 0 5px 0;
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+.car-card .price {
+    display: inline-block;
+    background-color: #d9252c;
+    color: #fff;
+    padding: 8px 25px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
+/* Generic Page Styling (for About & Contact) */
+.page-header {
+    background: rgba(0,0,0,0.5);
+    padding: 50px 20px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-size: 3em;
+    margin: 0;
+    color: #d9252c;
+    font-style: italic;
+}
+
+.page-content {
+    background-color: rgba(0,0,0,0.3);
+    padding: 40px;
+    border-radius: 10px;
+    line-height: 1.8;
+}
+
+.page-content h2 {
+    color: #d9252c;
+}
