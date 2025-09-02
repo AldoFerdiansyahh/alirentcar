@@ -1,5 +1,3 @@
-/* public/css/style.css */
-
 /* General Styling */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
@@ -8,10 +6,6 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #1a1a1a;
     color: #ffffff;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 1)), url('https://images.unsplash.com/photo-1553440569-b50674611252?q=80&w=2070&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
 }
 
 a {
@@ -19,36 +13,29 @@ a {
     color: inherit;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-/* Header & Navbar */
+/* ============================================== */
+/* == HEADER & NAVBAR == */
+/* ============================================== */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px);
+    padding: 15px 40px;
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(8px);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.logo {
-    font-size: 1.8em;
-    font-weight: 700;
-}
-
-.logo span {
-    font-weight: 400;
+.navbar {
+    display: flex;
+    align-items: center;
 }
 
 .navbar a {
-    margin-left: 30px;
+    margin-left: 35px;
     font-size: 1em;
     font-weight: 600;
     transition: color 0.3s ease;
@@ -56,51 +43,119 @@ a {
     border-bottom: 2px solid transparent;
 }
 
-.navbar a:hover, .navbar a.active {
+.navbar a:hover,
+.navbar a.active {
     color: #d9252c;
     border-bottom-color: #d9252c;
 }
 
-/* Main Content & Hero */
-.hero {
-    text-align: center;
-    padding: 60px 20px;
+/* Styling untuk tombol di navbar */
+.navbar-button {
+    margin-left: 20px;
+    background-color: transparent;
+    border: 1px solid #d9252c;
+    color: #d9252c;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+    white-space: nowrap;
 }
 
-.hero h1 {
-    font-size: 4em;
+.navbar-button:hover {
+    background-color: #d9252c;
+    color: #ffffff;
+}
+
+.navbar-button-primary {
+    background-color: #d9252c;
+    color: #ffffff;
+}
+.navbar-button-primary:hover {
+    background-color: #b01f24;
+    border-color: #b01f24;
+}
+
+.navbar-user-name {
+    font-weight: 600;
+}
+
+.navbar-divider {
+    display: none;
+}
+
+.logout-form {
+    display: contents; /* Agar form tidak merusak layout flex */
+}
+
+
+/* ============================================== */
+/* == HERO SECTION (BAGIAN GAMBAR ATAS) == */
+/* ============================================== */
+.hero {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 450px;
+    overflow: hidden;
+}
+
+.hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-text {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-text h1 {
+    font-size: 3.8em;
     font-weight: 800;
     margin: 0;
     font-style: italic;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: #fff;
-    text-shadow: 0 0 15px rgba(217, 37, 44, 0.5);
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
 }
 
-.hero h2 {
-    font-size: 1.5em;
+.hero-text h2 {
+    font-size: 1.2em;
     font-weight: 400;
-    margin-top: 5px;
+    margin-top: 10px;
     color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 3px;
 }
 
-/* Car Catalog */
+
+/* ============================================== */
+/* == CAR CATALOG == */
+/* ============================================== */
 .catalog-container {
-    padding: 20px 40px 80px 40px;
+    padding: 60px 40px 80px 40px;
 }
 
 .car-catalog {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
 }
 
 .car-card {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(35, 35, 35, 0.5);
     border-radius: 15px;
     text-align: center;
-    padding: 20px;
+    padding: 25px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -108,14 +163,14 @@ a {
 
 .car-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(217, 37, 44, 0.3);
+    box-shadow: 0 10px 40px rgba(217, 37, 44, 0.25);
 }
 
 .car-card img {
     max-width: 100%;
-    height: 150px;
+    height: 160px;
     object-fit: contain;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .car-card h3 {
@@ -128,35 +183,215 @@ a {
     display: inline-block;
     background-color: #d9252c;
     color: #fff;
-    padding: 8px 25px;
-    border-radius: 20px;
+    padding: 10px 30px;
+    border-radius: 50px;
     font-weight: 700;
     font-size: 1.1em;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
-/* Generic Page Styling (for About & Contact) */
+
+/* ============================================== */
+/* == STYLING HALAMAN GENERIC (ABOUT, CONTACT, DLL) == */
+/* ============================================== */
 .page-header {
-    background: rgba(0,0,0,0.5);
-    padding: 50px 20px;
+    padding: 80px 20px;
     text-align: center;
-    margin-bottom: 40px;
 }
 
 .page-header h1 {
-    font-size: 3em;
+    font-size: 3.5em;
     margin: 0;
     color: #d9252c;
     font-style: italic;
 }
 
 .page-content {
-    background-color: rgba(0,0,0,0.3);
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(35, 35, 35, 0.5);
     padding: 40px;
     border-radius: 10px;
     line-height: 1.8;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .page-content h2 {
     color: #d9252c;
+}
+
+
+/* ============================================== */
+/* == FOOTER == */
+/* ============================================== */
+.footer {
+    background-color: #000000;
+    color: #a0aec0;
+    padding: 60px 40px 20px 40px;
+    border-top: 3px solid #d9252c;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-logo {
+    height: 60px;
+    margin-bottom: 20px;
+}
+
+.footer-description {
+    line-height: 1.6;
+    font-size: 0.9em;
+}
+
+.footer-column h4 {
+    color: #ffffff;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 12px;
+}
+
+.footer-column a {
+    color: #a0aec0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: #d9252c;
+}
+
+.footer-column p {
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    font-size: 0.9em;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+
+/* ============================================== */
+/* == KODE RESPONSIF (TAMPILAN MOBILE) == */
+/* ============================================== */
+
+/* Default state untuk Desktop: Sembunyikan tombol hamburger */
+.hamburger-button {
+    display: none;
+}
+
+.hamburger-line {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+/* Hanya berlaku jika lebar layar 768px ke bawah */
+@media (max-width: 768px) {
+    .header {
+        padding: 15px 20px;
+    }
+
+    .navbar {
+        display: none;
+        position: absolute;
+        top: 75px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(20, 20, 20, 0.98);
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0 25px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar.active {
+        display: flex;
+    }
+
+    .navbar a {
+        margin: 15px 0;
+        border-bottom: none;
+    }
+    .navbar a:hover,
+    .navbar a.active {
+        border-bottom: none;
+    }
+    
+    .navbar .navbar-button {
+        margin: 10px 0;
+    }
+
+    .hamburger-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 24px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 110;
+    }
+
+    .hero {
+        min-height: 350px;
+        padding: 60px 20px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5em;
+    }
+
+    .hero-text h2 {
+        font-size: 1em;
+    }
+
+    .catalog-container {
+        padding: 40px 20px;
+    }
+    
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .navbar-divider {
+        display: block;
+        width: 80%;
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        margin: 15px 0;
+    }
 }

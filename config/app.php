@@ -167,6 +167,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        // App\Providers\Filament\AdminPanelProvider::class, // <-- BARIS INI SUDAH DIHAPUS/DIJADIKAN KOMENTAR
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
 

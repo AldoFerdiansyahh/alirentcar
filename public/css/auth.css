@@ -1,0 +1,88 @@
+/* public/css/auth.css */
+
+body {
+    background-color: #1a1a1a;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('/images/bg.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.auth-card {
+    background-color: rgba(30, 30, 30, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 2.5rem;
+}
+
+.auth-input {
+    background-color: rgba(10, 10, 10, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    border-radius: 0.5rem !important;
+    /* Tambahkan padding kanan agar tidak menutupi ikon */
+    padding-right: 40px !important;
+}
+
+.auth-input:focus {
+    border-color: #d9252c !important;
+    box-shadow: 0 0 0 1px #d9252c !important;
+}
+
+.auth-button {
+    background-color: #d9252c !important;
+    border-radius: 0.5rem !important;
+    padding: 0.75rem !important;
+    font-weight: 600 !important;
+    transition: background-color 0.3s ease;
+}
+
+.auth-button:hover {
+    background-color: #b01f24 !important;
+}
+
+.auth-link {
+    color: #a0aec0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.auth-link:hover {
+    color: #d9252c;
+}
+
+.register-prompt {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #a0aec0;
+}
+
+.register-prompt a {
+    color: #d9252c;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Style untuk fitur Show/Hide Password */
+.password-wrapper {
+    position: relative;
+    /* Membuat wrapper input password memiliki posisi relatif */
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%; /* Posisikan vertikal di tengah */
+    right: 15px; /* Posisikan 15px dari kanan */
+    transform: translateY(-50%); /* Geser ke atas 50% dari tinggi sendiri agar benar-benar di tengah */
+    cursor: pointer;
+    user-select: none; /* Agar ikon tidak bisa di-select teksnya */
+    color: #000000; /* Warna ikon */
+    z-index: 10; /* Pastikan ikon di atas input */
+    font-size: 1.1em; /* Ukuran ikon */
+}

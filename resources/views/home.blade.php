@@ -3,15 +3,20 @@
 @section('title', 'Ali Rent - Sewa Mobil Terpercaya')
 
 @section('content')
+
+    {{-- BAGIAN HERO DENGAN BACKGROUND GAMBAR --}}
     <section class="hero">
-        <h1>READY FOR RENT</h1>
-        <h2>CAR LIST</h2>
+        {{-- Background dikembalikan ke sini --}}
+        <div class="hero-image" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('/images/bg.png'); background-position: center 75%; background-size: cover;"></div>
+        <div class="hero-text">
+            <h1>READY FOR RENT</h1>
+            <h2>TOUR & TRAVEL</h2>
+        </div>
     </section>
 
+    {{-- BAGIAN KATALOG MOBIL --}}
     <div class="catalog-container">
         <div class="car-catalog">
-            {{-- Letakkan semua .car-card di sini, sama seperti prototipe --}}
-            {{-- Ganti path gambar menggunakan helper asset() --}}
             <a href="#">
                 <div class="car-card">
                     <img src="{{ asset('images/cars/brio.png') }}" alt="Honda Brio">
