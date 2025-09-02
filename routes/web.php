@@ -38,4 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// GRUP RUTE KHUSUS ADMIN
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+     
+     // Nanti rute-rute admin lainnya (misal: kelola mobil) bisa ditaruh di sini.
+ 
+ });
+
 require __DIR__.'/auth.php';

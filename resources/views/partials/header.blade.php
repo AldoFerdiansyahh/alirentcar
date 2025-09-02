@@ -1,6 +1,6 @@
 <header class="header">
     <a href="{{ route('home') }}" class="logo">
-        <img src="{{ asset('images/logo.png') }}" alt="Ali Rent Logo" style="height: 55px; vertical-align: middle;">
+        <img src="{{ asset('images/logo.png') }}" alt="Ali Rent Logo" style="height: 45px; vertical-align: middle;">
     </a>
 
     <button id="hamburger-button" class="hamburger-button">

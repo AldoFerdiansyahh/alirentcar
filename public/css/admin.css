@@ -1,0 +1,100 @@
+/* public/css/admin.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --sidebar-bg: #1a1d24;
+    --main-bg: #f0f2f5;
+    --text-light: #e2e8f0;
+    --text-dark: #2d3748;
+    --brand-color: #d9252c;
+    --border-color: #2d3748;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--main-bg);
+}
+
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-logo {
+    height: 50px;
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+    padding-top: 20px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link i {
+    width: 20px;
+    margin-right: 15px;
+    font-size: 1.1em;
+}
+
+.nav-link:hover, .nav-link.active {
+    background-color: var(--brand-color);
+}
+
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.logout-link {
+    padding-left: 25px;
+}
+
+/* Main Content Styling */
+.main-content {
+    flex-grow: 1;
+    margin-left: 260px; /* Lebar sidebar */
+    background-color: var(--main-bg);
+    color: var(--text-dark);
+}
+
+.main-header {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.content-wrapper {
+    padding: 30px;
+}

@@ -20,7 +20,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
+    padding: 15px 25px; /* Padding kiri-kanan dikurangi */
     background: rgba(10, 10, 10, 0.5);
     backdrop-filter: blur(8px);
     position: sticky;
@@ -35,12 +35,13 @@ a {
 }
 
 .navbar a {
-    margin-left: 35px;
-    font-size: 1em;
+    margin-left: 22px; /* Jarak antar link diatur ulang */
+    font-size: 0.9em; /* Ukuran font diperkecil */
     font-weight: 600;
     transition: color 0.3s ease;
     padding-bottom: 5px;
     border-bottom: 2px solid transparent;
+    white-space: nowrap;
 }
 
 .navbar a:hover,
@@ -51,16 +52,17 @@ a {
 
 /* Styling untuk tombol di navbar */
 .navbar-button {
-    margin-left: 20px;
+    margin-left: 22px;
     background-color: transparent;
     border: 1px solid #d9252c;
     color: #d9252c;
-    padding: 8px 20px;
+    padding: 6px 18px; /* Padding tombol diatur ulang */
     border-radius: 50px;
     font-weight: 600;
     transition: all 0.3s ease;
     display: inline-block;
     white-space: nowrap;
+    font-size: 0.9em; /* Ukuran font disamakan */
 }
 
 .navbar-button:hover {
@@ -88,7 +90,6 @@ a {
 .logout-form {
     display: contents; /* Agar form tidak merusak layout flex */
 }
-
 
 /* ============================================== */
 /* == HERO SECTION (BAGIAN GAMBAR ATAS) == */
