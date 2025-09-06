@@ -1,13 +1,10 @@
-<x-app-layout>
-     <div class="page-header">
-         <h1>Admin Dashboard</h1>
-     </div>
+@extends('layouts.admin')
 
-     <div class="py-12">
-         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-             <div class="page-content">
-                 Selamat Datang di Dasbor Admin, {{ Auth::user()->name }}!
-             </div>
-         </div>
-     </div>
- </x-app-layout>
+@section('title', 'Dashboard')
+
+@section('content')
+    <div style="background: #d9252c; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <p>Selamat Datang di Halaman Admin, {{ Auth::user()->name }}!</p>
+        <p>Dari sini Anda bisa mengelola seluruh data website.</p>
+    </div>
+@endsection

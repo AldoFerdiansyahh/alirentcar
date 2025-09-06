@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\Admin\MobilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -9,22 +11,18 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// == RUTE UNTUK HALAMAN PUBLIK ==
-Route::get('/', function () {
-    return view('home');
-})->name('home'); // <-- NAMA 'home' DITAMBAHKAN DI SINI
-
-Route::get('/cars', function () {
-    return view('cars');
-})->name('cars'); // <-- RUTE BARU DITAMBAHKAN
+// == RUTE UNTUK HALAMAN PUBLIK (INI YANG BENAR) ==
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/cars', [PageController::class, 'cars'])->name('cars');
+Route::get('/cars/{mobil}', [PageController::class, 'show'])->name('cars.show');
 
 Route::get('/about', function () {
     return view('about');
-})->name('about'); // <-- RUTE BARU DITAMBAHKAN
+})->name('about');
 
 Route::get('/contact', function () {
     return view('contact');
-})->name('contact'); // <-- RUTE BARU DITAMBAHKAN
+})->name('contact');
 
 
 // == RUTE UNTUK PENGGUNA YANG SUDAH LOGIN ==
@@ -43,9 +41,8 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-     
-     // Nanti rute-rute admin lainnya (misal: kelola mobil) bisa ditaruh di sini.
- 
- });
+    
+    Route::resource('/admin/mobils', MobilController::class);
+});
 
 require __DIR__.'/auth.php';

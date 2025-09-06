@@ -1,13 +1,15 @@
 /* public/css/admin.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+/* Variabel Warna Tema Gelap */
 :root {
-    --sidebar-bg: #1a1d24;
-    --main-bg: #f0f2f5;
-    --text-light: #e2e8f0;
-    --text-dark: #2d3748;
-    --brand-color: #d9252c;
-    --border-color: #2d3748;
+    --sidebar-bg: #101010;         
+    --main-bg: #1a1a1a;             
+    --card-bg: #1F1F1F;            
+    --text-light: #e2e8f0;          
+    --text-dark: #ffffff;          
+    --brand-color: #d9252c;         
+    --border-color: #2d3748;        
 }
 
 * {
@@ -84,17 +86,144 @@ body {
 /* Main Content Styling */
 .main-content {
     flex-grow: 1;
-    margin-left: 260px; /* Lebar sidebar */
+    margin-left: 260px;
     background-color: var(--main-bg);
-    color: var(--text-dark);
+    color: var(--text-dark); /* Teks di konten jadi putih */
 }
 
 .main-header {
-    background-color: #ffffff;
+    background-color: var(--card-bg); /* Menggunakan warna card */
     padding: 20px 30px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .content-wrapper {
     padding: 30px;
+}
+
+/* Styling untuk Card, Table, dan Form */
+.card {
+    background-color: var(--card-bg); /* Menggunakan warna card */
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+}
+
+.card-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color); /* Batas tabel jadi lebih gelap */
+}
+
+.table thead th {
+    font-weight: 600;
+    background-color: #2d3748; /* Header tabel jadi lebih gelap */
+    color: var(--text-light);
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+/* Styling untuk Tombol */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--brand-color);
+    color: #ffffff;
+}
+.btn-primary:hover {
+    background-color: #b01f24;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #1a1d24; /* Teks disesuaikan untuk kontras */
+}
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Styling untuk Form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+}
+.form-control:focus {
+    outline: none;
+    border-color: var(--brand-color);
+    box-shadow: 0 0 0 1px var(--brand-color);
+}
+
+/* Styling untuk Notifikasi */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    color: #ffffff;
+}
+
+.alert-success {
+    background-color: #28a745;
+}
+
+.alert-danger {
+    background-color: #dc3545;
 }

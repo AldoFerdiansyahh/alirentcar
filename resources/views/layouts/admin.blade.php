@@ -11,10 +11,10 @@
     <div class="admin-layout">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="{{ asset('images/logo-alirent.png') }}" alt="Logo" class="sidebar-logo">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="sidebar-logo">
             </div>
             <nav class="sidebar-nav">
-                <a href="#" class="nav-link active">
+                <a href="{{ url('/admin/mobils') }}" class="nav-link active">
                     <i class="fa-solid fa-car"></i>
                     <span>Data Mobil</span>
                 </a>
