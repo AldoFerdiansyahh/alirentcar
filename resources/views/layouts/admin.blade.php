@@ -18,7 +18,7 @@
                     <i class="fa-solid fa-car"></i>
                     <span>Data Mobil</span>
                 </a>
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.pelanggan.index') }}" class="nav-link {{ request()->is('admin/pelanggan*') ? 'active' : '' }}">
                     <i class="fa-solid fa-users"></i>
                     <span>Data Pelanggan</span>
                 </a>
@@ -41,6 +41,16 @@
                 <h2>@yield('title', 'Dashboard')</h2>
             </header>
             <div class="content-wrapper">
+                {{-- =================================== --}}
+                {{-- == TAMBAHKAN BLOK KODE INI == --}}
+                {{-- =================================== --}}
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                {{-- =================================== --}}
+
                 @yield('content')
             </div>
         </main>

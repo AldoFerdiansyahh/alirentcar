@@ -3,8 +3,13 @@
 @section('title', 'Daftar Mobil - Ali Rent')
 
 @section('content')
-    <div class="page-header">
-        <h1>Our Car Collection</h1>
+
+@include('partials._hero', [
+    'title' => 'Our Car Collection',
+    'titleClass' => 'page-title' // Ini akan memanggil style judul merah
+])
+
+<div class="page-header">
     </div>
 
     <div class="catalog-container">

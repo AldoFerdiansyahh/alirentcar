@@ -1,41 +1,64 @@
 <header class="header">
-    <a href="{{ route('home') }}" class="logo">
-        <img src="{{ asset('images/logo.png') }}" alt="Ali Rent Logo" style="height: 45px; vertical-align: middle;">
+    {{-- Logo --}}
+    <a href="{{ route('home') }}">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height: 40px;">
     </a>
 
-    <button id="hamburger-button" class="hamburger-button">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-    </button>
-
-    <nav id="navbar" class="navbar">
-        {{-- Menu Utama --}}
-        <a href="{{ route('home') }}" class="{{ request()->is('/') ? 'active' : '' }}">Home</a>
-        <a href="{{ route('cars') }}" class="{{ request()->is('cars') ? 'active' : '' }}">Car List</a>
-        <a href="{{ route('about') }}" class="{{ request()->is('about') ? 'active' : '' }}">About Us</a>
-        <a href="{{ route('contact') }}" class="{{ request()->is('contact') ? 'active' : '' }}">Contact</a>
+    {{-- Navigasi --}}
+    <nav class="navbar" id="navbar">
+        <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
+        <a href="{{ route('cars') }}" class="{{ request()->routeIs('cars') ? 'active' : '' }}">Car List</a>
         
+        {{-- 👇 DUA LINK YANG HILANG SAYA TAMBAHKAN KEMBALI DI SINI 👇 --}}
+        <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">About Us</a>
+        <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
+        
+        {{-- Divider untuk Mobile --}}
         <hr class="navbar-divider">
 
-        {{-- Logika untuk Tombol Login/Logout --}}
+        @guest
+            {{-- Tombol untuk Pengguna yang belum Login --}}
+            <div class="navbar-auth-buttons">
+                <a href="{{ route('login') }}" class="navbar-button">Login</a>
+                <a href="{{ route('register') }}" class="navbar-button navbar-button-primary">Register</a>
+            </div>
+        @endguest
+
         @auth
-            {{-- Bagian ini akan tampil jika pengguna SUDAH LOGIN --}}
-            <a href="{{ url('/dashboard') }}" class="navbar-user-name">
-                {{ Auth::user()->name }}
-            </a>
-            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                @csrf
-                <a href="{{ route('logout') }}"
-                   onclick="event.preventDefault(); this.closest('form').submit();"
-                   class="navbar-button navbar-button-logout">
-                    Logout
-                </a>
-            </form>
-        @else
-            {{-- Bagian ini akan tampil jika pengguna BELUM LOGIN --}}
-            <a href="{{ route('login') }}" class="navbar-button">Login</a>
-            <a href="{{ route('register') }}" class="navbar-button navbar-button-primary">Register</a>
+            {{-- Dropdown untuk Pengguna yang sudah Login --}}
+            <div class="profile-dropdown">
+                <button class="profile-toggle">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-header">
+                        Signed in as<br>
+                        <strong>{{ Auth::user()->name }}</strong>
+                    </div>
+                    <hr class="dropdown-divider">
+
+                    @if(Auth::user()->is_admin)
+                        <a href="{{ url('/admin/mobils') }}" class="dropdown-item">Admin Panel</a>
+                    @endif
+
+                    <a href="{{ route('riwayat.index') }}" class="dropdown-item">Riwayat Penyewaan</a>
+                    <a href="{{ route('profile.edit') }}" class="dropdown-item">Profile</a>
+                    
+                    <hr class="dropdown-divider">
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item logout-button">Logout</button>
+                    </form>
+                </div>
+            </div>
         @endauth
     </nav>
+    
+    {{-- Tombol Hamburger untuk Mobile --}}
+    <button class="hamburger-button" id="hamburger-button">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </button>
 </header>

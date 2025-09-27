@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\MobilController;
+use App\Http\Controllers\PenyewaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +45,24 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     
     Route::resource('/admin/mobils', MobilController::class);
 });
+
+// Route untuk menyimpan data permintaan sewa dari form user
+Route::post('/sewa/store', [PenyewaanController::class, 'store'])->name('sewa.store');
+
+// Route untuk menampilkan data pelanggan di panel admin
+Route::get('/admin/pelanggan', [PenyewaanController::class, 'indexAdmin'])->name('admin.pelanggan.index');
+
+// == TAMBAHKAN DUA BARIS DI BAWAH INI ==
+Route::get('/admin/pelanggan/{penyewaan}', [PenyewaanController::class, 'showAdmin'])->name('admin.pelanggan.show');
+Route::post('/admin/pelanggan/{penyewaan}/update-status', [PenyewaanController::class, 'updateStatusAdmin'])->name('admin.pelanggan.updateStatus');
+// ======================================
+
+// Route untuk menampilkan  Riwayat Pelanggan
+Route::get('/riwayat', [\App\Http\Controllers\PenyewaanController::class, 'riwayat'])->middleware('auth')->name('riwayat.index');
+
+// Route untuk menampilkan dan mencetak struk
+Route::get('/struk/{penyewaan}', [PenyewaanController::class, 'cetakStruk'])
+     ->middleware('auth')
+     ->name('struk.cetak');
 
 require __DIR__.'/auth.php';

@@ -3,10 +3,15 @@
 @section('title', 'Hubungi Kami - Ali Rent')
 
 @section('content')
-    <div class="page-header">
-        <h1>Hubungi Kami</h1>
-    </div>
 
+@include('partials._hero', [
+    'title' => 'Contact Us',
+    'titleClass' => 'page-title'
+])
+
+    <div class="page-header">
+    </div>
+    
     <div class="container">
         <div class="page-content">
             <h2>Informasi Kontak</h2>

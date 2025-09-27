@@ -3,8 +3,13 @@
 @section('title', 'Tentang Kami - Ali Rent')
 
 @section('content')
+
+@include('partials._hero', [
+    'title' => 'About Us',
+    'titleClass' => 'page-title'
+])
+
     <div class="page-header">
-        <h1>Tentang Kami</h1>
     </div>
 
     <div class="container">

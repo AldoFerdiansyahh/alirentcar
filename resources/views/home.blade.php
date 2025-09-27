@@ -3,13 +3,11 @@
 @section('title', 'Ali Rent - Sewa Mobil Terpercaya')
 
 @section('content')
-    <section class="hero">
-        <div class="hero-image" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('/images/bg.png'); background-position: center 75%; background-size: cover;"></div>
-        <div class="hero-text">
-            <h1>READY FOR RENT</h1>
-            <h2>TOUR & TRAVEL</h2>
-        </div>
-    </section>
+
+@include('partials._hero', [
+    'title' => 'READY FOR RENT', 
+    'subtitle' => 'TOUR & TRAVEL'
+])
 
     {{-- BAGIAN KATALOG MOBIL --}}
     <div class="catalog-container">

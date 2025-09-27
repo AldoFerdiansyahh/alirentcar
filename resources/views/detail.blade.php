@@ -8,7 +8,6 @@
         <h2 style="font-size: 1.5em;">{{ $mobil->merek }} - {{ $mobil->tahun }}</h2>
     </div>
 
-    {{-- Kode pembungkus yang salah telah dihapus, kita akan gunakan .container bawaan --}}
     <div class="container">
         <div class="detail-layout">
             
@@ -25,20 +24,24 @@
                         <li><strong><i class="fa-solid fa-gas-pump"></i> Bahan Bakar:</strong> {{ $mobil->bahan_bakar }}</li>
                     </ul>
                     <hr>
+                    {{-- BAGIAN INI SUDAH DIUBAH --}}
                     <h3>Harga Sewa</h3>
-                    <ul>
-                        <li><strong>Lepas Kunci:</strong> Rp {{ number_format($mobil->harga_sewa_lepas_kunci, 0, ',', '.') }}/hari</li>
-                        <li><strong>Dengan Supir:</strong> Rp {{ number_format($mobil->harga_sewa_dengan_supir, 0, ',', '.') }}/hari</li>
-                    </ul>
+                    <p style="font-size: 1.2em; font-weight: bold;">
+                        Rp {{ number_format($mobil->harga_sewa_lepas_kunci, 0, ',', '.') }}/hari
+                    </p>
                 </div>
             </div>
 
-            {{-- KOLOM KANAN: FORM PENYEWAAN --}}
+            {{-- KOLOM KANAN: TAMPILKAN FORM JIKA SUDAH LOGIN --}}
+            @auth
             <div class="penyewaan-form-card">
                 <h3>Formulir Penyewaan</h3>
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('sewa.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
+                    <input type="hidden" name="mobil_id" value="{{ $mobil->id }}">
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
                     <div class="form-group">
                         <label for="nama_lengkap">Nama Lengkap</label>
                         <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" value="{{ auth()->user()->name ?? '' }}" required>
@@ -82,13 +85,8 @@
 
                     <hr>
 
-                    <div class="form-group">
-                        <label for="tipe_sewa">Tipe Sewa</label>
-                        <select id="tipe_sewa" name="tipe_sewa" class="form-control" required>
-                            <option value="lepas_kunci">Lepas Kunci</option>
-                            <option value="dengan_supir">Dengan Supir</option>
-                        </select>
-                    </div>
+                    {{-- DROPDOWN TIPE SEWA SUDAH DIHAPUS DARI SINI --}}
+                    
                     <div class="form-group">
                         <label for="tanggal_mulai">Tanggal Mulai</label>
                         <input type="date" id="tanggal_mulai" name="tanggal_mulai" class="form-control" required>
@@ -101,23 +99,42 @@
                     <div class="price-calculation">
                         <h4>Total Harga:</h4>
                         <p id="total-harga">Rp 0</p>
+                        <input type="hidden" name="total_harga" id="input-total-harga" value="0">
                     </div>
 
                     <button type="submit" class="btn-pesan">Kirim Permintaan Sewa</button>
                 </form>
             </div>
+            @endauth
+
+            {{-- KOLOM KANAN: TAMPILKAN PESAN JIKA BELUM LOGIN --}}
+            @guest
+            <div class="penyewaan-form-card">
+                <h3>Formulir Penyewaan</h3>
+                <div class="login-prompt" style="text-align: center; padding: 20px;">
+                    <p style="margin-bottom: 20px;">Anda harus login terlebih dahulu untuk dapat menyewa mobil.</p>
+                    <a href="{{ route('login') }}" class="btn-pesan" style="text-decoration: none; display: inline-block; margin-right: 10px;">Login</a>
+                    <a href="{{ route('register') }}" class="btn-sekunder" style="text-decoration: none; display: inline-block;">Daftar</a>
+                </div>
+            </div>
+            @endguest
+
         </div>
     </div>
 
-    {{-- ============================================== --}}
-    {{-- == SCRIPT UNTUK DROPDOWN & KALKULASI HARGA == --}}
-    {{-- ============================================== --}}
+    {{-- SCRIPT SUDAH DIUBAH TOTAL --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- BAGIAN DROPDOWN WILAYAH ---
+            // Cek apakah form ada sebelum menjalankan script
+            const penyewaanForm = document.querySelector('.penyewaan-form-card form');
+            if (!penyewaanForm) {
+                return; // Hentikan script jika form tidak ada (user belum login)
+            }
+    
+            // --- BAGIAN DROPDOWN WILAYAH (TETAP SAMA) ---
             const provinsiDropdown = document.getElementById('provinsi');
             const kotaDropdown = document.getElementById('kota');
-
+    
             fetch('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json')
                 .then(response => response.json())
                 .then(provinces => {
@@ -133,7 +150,7 @@
                     console.error('Error fetching provinces:', error);
                     provinsiDropdown.innerHTML = '<option value="">Gagal memuat data</option>';
                 });
-
+    
             provinsiDropdown.addEventListener('change', function() {
                 const provinceId = this.value;
                 kotaDropdown.innerHTML = '<option value="">Memuat kota...</option>';
@@ -157,51 +174,36 @@
                     kotaDropdown.innerHTML = '<option value="">Pilih Provinsi Terlebih Dahulu</option>';
                 }
             });
-
-            // --- BAGIAN KALKULASI HARGA OTOMATIS ---
-            const tipeSewaDropdown = document.getElementById('tipe_sewa');
+    
+            // --- BAGIAN KALKULASI HARGA OTOMATIS (VERSI BARU) ---
             const tanggalMulaiInput = document.getElementById('tanggal_mulai');
             const tanggalSelesaiInput = document.getElementById('tanggal_selesai');
             const totalHargaElement = document.getElementById('total-harga');
             
-            const hargaLepasKunci = {{ $mobil->harga_sewa_lepas_kunci }};
-            const hargaDenganSupir = {{ $mobil->harga_sewa_dengan_supir }};
-
+            // Hanya menggunakan satu harga
+            const hargaPerHari = {{ $mobil->harga_sewa_lepas_kunci }};
+    
             function calculateTotalPrice() {
-                const tipeSewa = tipeSewaDropdown.value;
                 const tanggalMulai = new Date(tanggalMulaiInput.value);
                 const tanggalSelesai = new Date(tanggalSelesaiInput.value);
-
-                if (!tanggalMulaiInput.value || !tanggalSelesaiInput.value || tanggalSelesai < tanggalMulai) {
+    
+                if (!tanggalMulaiInput.value || !tanggalSelesaiInput.value || tanggalSelesai < tanggalMulai || isNaN(tanggalMulai) || isNaN(tanggalSelesai)) {
                     totalHargaElement.textContent = 'Rp 0';
+                    document.getElementById('input-total-harga').value = 0;
                     return;
                 }
-                
-                // Pastikan tanggal valid sebelum menghitung
-                if (isNaN(tanggalMulai) || isNaN(tanggalSelesai)) {
-                    totalHargaElement.textContent = 'Rp 0';
-                    return;
-                }
-
+    
                 const timeDiff = tanggalSelesai.getTime() - tanggalMulai.getTime();
                 const jumlahHari = Math.max(0, Math.round(timeDiff / (1000 * 3600 * 24))) + 1;
-
-                let hargaPerHari = 0;
-                if (tipeSewa === 'lepas_kunci') {
-                    hargaPerHari = hargaLepasKunci;
-                } else if (tipeSewa === 'dengan_supir') {
-                    hargaPerHari = hargaDenganSupir;
-                }
-
+    
                 const totalHarga = jumlahHari * hargaPerHari;
-
+    
                 totalHargaElement.textContent = 'Rp ' + totalHarga.toLocaleString('id-ID');
+                document.getElementById('input-total-harga').value = totalHarga;
             }
-
-            tipeSewaDropdown.addEventListener('change', calculateTotalPrice);
+    
             tanggalMulaiInput.addEventListener('change', calculateTotalPrice);
             tanggalSelesaiInput.addEventListener('change', calculateTotalPrice);
         });
     </script>
 @endsection
-
