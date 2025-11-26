@@ -29,6 +29,7 @@ a {
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+    
 }
 
 .navbar {
@@ -315,6 +316,7 @@ a {
 /* Default state untuk Desktop: Sembunyikan tombol hamburger */
 .hamburger-button {
     display: none;
+    position: left;
 }
 
 .hamburger-line {
@@ -331,20 +333,32 @@ a {
     }
 
     .navbar {
-        display: none;
-        position: absolute;
-        top: 71px; /* Disesuaikan dengan tinggi header mobile */
-        left: 0;
-        width: 100%;
+        /* DIUBAH: Hapus 'display: none', ganti dengan transform */
+        display: flex;
+        transform: translateX(-100%); /* Sembunyikan dengan geser ke kiri */
+        
+        /* DIUBAH: Ganti 'position: absolute' menjadi 'fixed' agar menempel di layar */
+        position: fixed;
+        right: 0 !important;
+        top: 0;
+        width: 300px; /* Beri lebar yang pasti */
+        max-width: 80%; /* Batas lebar maksimal */
+        height: 100vh; /* Tinggi penuh layar */
+
         background-color: rgba(20, 20, 20, 0.98);
         flex-direction: column;
         align-items: center;
-        padding: 10px 0 25px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px 20px 80px; /* Sesuaikan padding agar rapi */
+        border-top: none;
+        box-shadow: 5px 0 25px rgba(0,0,0,0.5); /* Tambah bayangan agar terlihat bagus */
+        z-index: 1050;
+
+        /* INI ANIMASINYA */
+        transition: transform 0.4s ease-in-out;
     }
 
     .navbar.active {
-        display: flex;
+        transform: translateX(0); /* Tampilkan dengan geser kembali ke posisi semula */
     }
 
     .navbar a {
@@ -681,7 +695,9 @@ img{
 
 .navbar-auth-buttons {
     display: flex;
+    flex-direction: row; /* Paksa tombol untuk berjajar ke samping */
     align-items: center;
+    gap: 1rem;
 }
 
 .profile-dropdown {
@@ -748,7 +764,7 @@ img{
     width: 100%;
     padding: 12px 20px; /* Padding disamakan agar lebih rapi */
     color: #e2e8f0;
-    text-align: left;
+    text-align: left !important;
     font-size: 1em;
     background: none;
     border: none;
@@ -805,6 +821,8 @@ img{
         transform: none; /* Hapus animasi transform */
         opacity: 1;
         visibility: visible;
+        transition: right 0.4s ease-in-out; /* <-- INI BARIS ANIMASINYA */
+
     }
 
     .navbar .dropdown-menu.active {

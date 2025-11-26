@@ -93,7 +93,7 @@ body {
 
 .main-header {
     background-color: var(--card-bg); /* Menggunakan warna card */
-    padding: 20px 30px;
+    padding: 15px 15px 15px 70px; 
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -228,3 +228,118 @@ body {
 .alert-danger {
     background-color: #dc3545;
 }
+
+/* ============================================== */
+/* == CSS TAMBAHAN UNTUK RESPONSIVE ADMIN PANEL == */
+/* ============================================== */
+
+.admin-hamburger {
+    display: none; /* Sembunyi di desktop */
+}
+.admin-overlay {
+    display: none; /* Sembunyi di desktop */
+}
+
+/* Aturan untuk layar kecil (HP & Tablet) */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%); /* Sembunyikan sidebar ke kiri */
+        position: fixed;
+        z-index: 1100;
+        transition: transform 0.3s ease-in-out;
+    }
+    .sidebar.active {
+        transform: translateX(0); /* Tampilkan sidebar saat aktif */
+    }
+    .main-content {
+        margin-left: 0; /* Konten mengisi layar penuh */
+    }
+    .admin-hamburger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1200;
+        background-color: var(--card-bg);
+        color: var(--text-light);
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    .admin-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1050;
+    }
+    .admin-overlay.active {
+        display: block; /* Tampilkan overlay saat menu aktif */
+    }
+}
+
+/* ======================================================= */
+/* == KODE PERBAIKAN RESPONSIVE (JANGAN UBAH DI ATAS) == */
+/* ======================================================= */
+
+/* Perbaikan untuk layar Tablet & HP */
+@media (max-width: 992px) {
+    .main-content {
+        width: 100%; /* DITAMBAHKAN: Memaksa lebar konten menjadi 100% */
+        padding: 15px; /* DITAMBAHKAN: Memberi sedikit padding di HP */
+        box-sizing: border-box; /* DITAMBAHKAN: Agar padding tidak merusak lebar */
+    }
+
+    /* Agar judul header tidak terlalu besar di HP */
+    .main-header h2 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Perbaikan untuk Tabel di HP */
+@media (max-width: 768px) {
+    .table thead {
+        display: none; /* Sembunyikan header tabel di HP */
+    }
+
+    .table tr {
+        display: block; /* Ubah baris jadi kartu */
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background-color: #2c2c2e;
+    }
+
+    .table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .table tbody tr:hover {
+        background-color: #2c2c2e; /* Matikan efek hover di mode kartu */
+    }
+
+    .table td:last-child {
+        border-bottom: none;
+    }
+
+    .table td::before {
+        content: attr(data-label); /* Tampilkan label */
+        font-weight: 600;
+        text-align: left;
+        margin-right: 1rem;
+        color: var(--text-light);
+    }   
+}
+ 

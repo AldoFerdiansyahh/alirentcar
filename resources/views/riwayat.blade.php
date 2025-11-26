@@ -104,6 +104,7 @@
     .page-title {
         text-align: center;
         font-style: italic;
+        font-family: 'Poppins', sans-serif;
         color: #e53935; /* Warna merah seperti contoh */
         font-size: 2.5rem; /* Ukuran font lebih besar */
         margin-top: 40px;

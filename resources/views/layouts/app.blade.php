@@ -15,7 +15,10 @@
 
     {{-- Stylesheet Utama Anda --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
     {{-- 👇 TAMBAHKAN 'KOTAK POS' UNTUK CSS TAMBAHAN DI SINI 👇 --}}
     @stack('styles')
@@ -35,39 +38,28 @@
     
     @include('partials.footer') 
 
-    <script>
-        // Script untuk Hamburger Menu
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
         const hamburgerButton = document.getElementById('hamburger-button');
         const navbar = document.getElementById('navbar');
-
-        hamburgerButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // Mencegah klik menyebar ke window
-            navbar.classList.toggle('active');
-        });
-
-        // Script untuk Profile Dropdown
         const profileToggle = document.querySelector('.profile-toggle');
         const dropdownMenu = document.querySelector('.dropdown-menu');
 
+        // Buka/Tutup menu mobile saat hamburger di-klik
+        hamburgerButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+            navbar.classList.toggle('active');
+        });
+
+        // Buka/Tutup dropdown profil saat ikon user di-klik
         if (profileToggle) {
-            profileToggle.addEventListener('click', function(event) {
-                event.stopPropagation(); // Mencegah klik menyebar ke window
+            profileToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
                 dropdownMenu.classList.toggle('active');
             });
         }
-
-        // Klik di mana saja di luar menu untuk menutupnya
-        window.addEventListener('click', function(event) {
-            // Tutup navbar mobile jika klik di luar navbar dan hamburger
-            if (navbar.classList.contains('active') && !navbar.contains(event.target) && !hamburgerButton.contains(event.target)) {
-                navbar.classList.remove('active');
-            }
-            
-            // Tutup dropdown profile jika klik di luar dropdown dan tombolnya
-            if (dropdownMenu && dropdownMenu.classList.contains('active') && !dropdownMenu.contains(event.target) && !profileToggle.contains(event.target)) {
-                dropdownMenu.classList.remove('active');
-            }
-        });
-    </script>
+    });
+</script>
     </body>
 </html>

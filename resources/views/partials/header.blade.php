@@ -1,4 +1,11 @@
 <header class="header">
+    {{-- Tombol Hamburger untuk Mobile (PINDAHKAN KE SINI) --}}
+    <button class="hamburger-button" id="hamburger-button">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </button>
+    
     {{-- Logo --}}
     <a href="{{ route('home') }}">
         <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height: 40px;">
@@ -6,10 +13,9 @@
 
     {{-- Navigasi --}}
     <nav class="navbar" id="navbar">
+        {{-- Link navigasi utama --}}
         <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
         <a href="{{ route('cars') }}" class="{{ request()->routeIs('cars') ? 'active' : '' }}">Car List</a>
-        
-        {{-- 👇 DUA LINK YANG HILANG SAYA TAMBAHKAN KEMBALI DI SINI 👇 --}}
         <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">About Us</a>
         <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
         
@@ -54,11 +60,4 @@
             </div>
         @endauth
     </nav>
-    
-    {{-- Tombol Hamburger untuk Mobile --}}
-    <button class="hamburger-button" id="hamburger-button">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </button>
 </header>

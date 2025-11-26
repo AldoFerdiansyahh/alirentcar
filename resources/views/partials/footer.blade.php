@@ -25,7 +25,7 @@
             <h4>Kontak Kami</h4>
             <p><strong>Telepon:</strong><br> +62 812 3456 7890</p>
             <p><strong>Email:</strong><br> info@alirentcar.com</p>
-            <p><strong>Alamat:</strong><br> Jl. Web Programming No. 123, Bandung, Jawa Barat</p>
+            <p><strong>Alamat:</strong><br> Jl. Kopo Permai I Blok Y No. 6, Sukamenak, Kecamatan Margahayu, Kabupaten Bandung</p>
         </div>
 
     </div>

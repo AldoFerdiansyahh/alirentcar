@@ -9,12 +9,21 @@
 </head>
 <body>
     <div class="admin-layout">
-        <aside class="sidebar">
+        
+        {{-- DITAMBAHKAN: Tombol Hamburger untuk HP --}}
+        <button class="admin-hamburger" id="admin-hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <aside class="sidebar" id="admin-sidebar">
             <div class="sidebar-header">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="sidebar-logo">
+                <a href="{{ url('/admin/dashboard') }}">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="sidebar-logo">
+                </a>
             </div>
             <nav class="sidebar-nav">
-                <a href="{{ url('/admin/mobils') }}" class="nav-link active">
+                {{-- Logika 'active' di link mobil saya perbaiki sedikit --}}
+                <a href="{{ url('/admin/mobils') }}" class="nav-link {{ request()->is('admin/mobils*') ? 'active' : '' }}">
                     <i class="fa-solid fa-car"></i>
                     <span>Data Mobil</span>
                 </a>
@@ -36,24 +45,39 @@
             </div>
         </aside>
 
+        {{-- DITAMBAHKAN: Overlay untuk latar belakang gelap --}}
+        <div class="admin-overlay" id="admin-overlay"></div>
+
         <main class="main-content">
             <header class="main-header">
                 <h2>@yield('title', 'Dashboard')</h2>
             </header>
             <div class="content-wrapper">
-                {{-- =================================== --}}
-                {{-- == TAMBAHKAN BLOK KODE INI == --}}
-                {{-- =================================== --}}
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
                 @endif
-                {{-- =================================== --}}
-
                 @yield('content')
             </div>
         </main>
     </div>
+
+    {{-- DITAMBAHKAN: JavaScript untuk fungsionalitas menu --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const hamburger = document.getElementById('admin-hamburger');
+            const sidebar = document.getElementById('admin-sidebar');
+            const overlay = document.getElementById('admin-overlay');
+
+            function toggleMenu() {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            }
+
+            hamburger.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+        });
+    </script>
 </body>
 </html>
