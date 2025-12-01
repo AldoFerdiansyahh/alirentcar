@@ -58,4 +58,10 @@
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
     </button>
+    
+    <button class="hamburger-button" id="hamburger-button">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </button>
 </header>
