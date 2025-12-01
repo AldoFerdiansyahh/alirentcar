@@ -26,9 +26,10 @@
                     <hr>
                     {{-- BAGIAN INI SUDAH DIUBAH --}}
                     <h3>Harga Sewa</h3>
-                    <p style="font-size: 1.2em; font-weight: bold;">
-                        Rp {{ number_format($mobil->harga_sewa_lepas_kunci, 0, ',', '.') }}/hari
-                    </p>
+                    <ul>
+                        <li><strong>Lepas Kunci:</strong> Rp {{ number_format($mobil->harga_sewa_lepas_kunci, 0, ',', '.') }}/hari</li>
+                        <li><strong>Dengan Supir:</strong> Rp {{ number_format($mobil->harga_sewa_dengan_supir, 0, ',', '.') }}/hari</li>
+                    </ul>
                 </div>
             </div>
 
@@ -59,7 +60,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="kota">Kota/Kabupaten</label>
+                        <label for="kota">Asal Kota/Kabupaten</label>
                         <select id="kota" name="kota" class="form-control" required>
                             <option value="">Pilih Provinsi Terlebih Dahulu</option>
                         </select>
@@ -86,6 +87,14 @@
                     <hr>
 
                     {{-- DROPDOWN TIPE SEWA SUDAH DIHAPUS DARI SINI --}}
+
+                    <div class="form-group">
+                        <label for="tipe_sewa">Tipe Sewa</label>
+                        <select id="tipe_sewa" name="tipe_sewa" class="form-control" required>
+                            <option value="lepas_kunci">Lepas Kunci</option>
+                            <option value="dengan_supir">Dengan Supir</option>
+                        </select>
+                    </div>
                     
                     <div class="form-group">
                         <label for="tanggal_mulai">Tanggal Mulai</label>
@@ -123,87 +132,115 @@
     </div>
 
     {{-- SCRIPT SUDAH DIUBAH TOTAL --}}
+{{-- GANTI SCRIPT LAMA DENGAN SCRIPT INI --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Cek apakah form ada sebelum menjalankan script
-            const penyewaanForm = document.querySelector('.penyewaan-form-card form');
-            if (!penyewaanForm) {
-                return; // Hentikan script jika form tidak ada (user belum login)
-            }
-    
-            // --- BAGIAN DROPDOWN WILAYAH (TETAP SAMA) ---
+            // --- 1. BAGIAN DROPDOWN WILAYAH (TETAP SAMA) ---
             const provinsiDropdown = document.getElementById('provinsi');
             const kotaDropdown = document.getElementById('kota');
-    
-            fetch('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json')
-                .then(response => response.json())
-                .then(provinces => {
-                    provinsiDropdown.innerHTML = '<option value="">Pilih Provinsi...</option>';
-                    provinces.forEach(province => {
-                        const option = document.createElement('option');
-                        option.value = province.id;
-                        option.textContent = province.name;
-                        provinsiDropdown.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching provinces:', error);
-                    provinsiDropdown.innerHTML = '<option value="">Gagal memuat data</option>';
-                });
-    
-            provinsiDropdown.addEventListener('change', function() {
-                const provinceId = this.value;
-                kotaDropdown.innerHTML = '<option value="">Memuat kota...</option>';
-                if (provinceId) {
-                    fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`)
-                        .then(response => response.json())
-                        .then(regencies => {
-                            kotaDropdown.innerHTML = '<option value="">Pilih Kota/Kabupaten...</option>';
-                            regencies.forEach(regency => {
-                                const option = document.createElement('option');
-                                option.value = regency.id;
-                                option.textContent = regency.name;
-                                kotaDropdown.appendChild(option);
-                            });
-                        })
-                        .catch(error => {
-                            console.error('Error fetching regencies:', error);
-                            kotaDropdown.innerHTML = '<option value="">Gagal memuat data</option>';
+
+            if (provinsiDropdown) {
+                fetch('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json')
+                    .then(response => response.json())
+                    .then(provinces => {
+                        provinsiDropdown.innerHTML = '<option value="">Pilih Provinsi...</option>';
+                        provinces.forEach(province => {
+                            const option = document.createElement('option');
+                            option.value = province.id;
+                            option.textContent = province.name;
+                            provinsiDropdown.appendChild(option);
                         });
-                } else {
-                    kotaDropdown.innerHTML = '<option value="">Pilih Provinsi Terlebih Dahulu</option>';
-                }
-            });
-    
-            // --- BAGIAN KALKULASI HARGA OTOMATIS (VERSI BARU) ---
+                    })
+                    .catch(error => console.error('Error fetching provinces:', error));
+
+                provinsiDropdown.addEventListener('change', function() {
+                    const provinceId = this.value;
+                    kotaDropdown.innerHTML = '<option value="">Memuat kota...</option>';
+                    if (provinceId) {
+                        fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`)
+                            .then(response => response.json())
+                            .then(regencies => {
+                                kotaDropdown.innerHTML = '<option value="">Pilih Kota/Kabupaten...</option>';
+                                regencies.forEach(regency => {
+                                    const option = document.createElement('option');
+                                    option.value = regency.id;
+                                    option.textContent = regency.name;
+                                    kotaDropdown.appendChild(option);
+                                });
+                            });
+                    } else {
+                        kotaDropdown.innerHTML = '<option value="">Pilih Provinsi Terlebih Dahulu</option>';
+                    }
+                });
+            }
+
+            // --- 2. BAGIAN KALKULASI HARGA (DIPERBAIKI) ---
+            const tipeSewaDropdown = document.getElementById('tipe_sewa');
             const tanggalMulaiInput = document.getElementById('tanggal_mulai');
             const tanggalSelesaiInput = document.getElementById('tanggal_selesai');
             const totalHargaElement = document.getElementById('total-harga');
+            const inputTotalHarga = document.getElementById('input-total-harga');
             
-            // Hanya menggunakan satu harga
-            const hargaPerHari = {{ $mobil->harga_sewa_lepas_kunci }};
-    
+            // Pastikan harga diambil sebagai angka murni (integer)
+            const hargaLepasKunci = {{ (int) $mobil->harga_sewa_lepas_kunci }};
+            const hargaDenganSupir = {{ (int) $mobil->harga_sewa_dengan_supir }};
+
             function calculateTotalPrice() {
+                // Cek apakah elemen ada (untuk menghindari error di halaman lain)
+                if (!tanggalMulaiInput || !tanggalSelesaiInput || !tipeSewaDropdown) return;
+
+                const tipeSewa = tipeSewaDropdown.value;
                 const tanggalMulai = new Date(tanggalMulaiInput.value);
                 const tanggalSelesai = new Date(tanggalSelesaiInput.value);
-    
-                if (!tanggalMulaiInput.value || !tanggalSelesaiInput.value || tanggalSelesai < tanggalMulai || isNaN(tanggalMulai) || isNaN(tanggalSelesai)) {
+
+                // Validasi input
+                if (!tanggalMulaiInput.value || !tanggalSelesaiInput.value || isNaN(tanggalMulai) || isNaN(tanggalSelesai)) {
                     totalHargaElement.textContent = 'Rp 0';
-                    document.getElementById('input-total-harga').value = 0;
+                    inputTotalHarga.value = 0;
                     return;
                 }
-    
+
+                // Cek jika tanggal selesai sebelum tanggal mulai
+                if (tanggalSelesai < tanggalMulai) {
+                    // Opsional: alert('Tanggal selesai tidak boleh sebelum tanggal mulai');
+                    totalHargaElement.textContent = 'Rp 0';
+                    inputTotalHarga.value = 0;
+                    return;
+                }
+
+                // Hitung selisih hari
                 const timeDiff = tanggalSelesai.getTime() - tanggalMulai.getTime();
-                const jumlahHari = Math.max(0, Math.round(timeDiff / (1000 * 3600 * 24))) + 1;
-    
+                const jumlahHari = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // Ditambah 1 agar minimal 1 hari
+
+                // Tentukan harga per hari
+                let hargaPerHari = 0;
+                if (tipeSewa === 'lepas_kunci') {
+                    hargaPerHari = hargaLepasKunci;
+                } else if (tipeSewa === 'dengan_supir') {
+                    hargaPerHari = hargaDenganSupir;
+                }
+
+                // Hitung Total
                 const totalHarga = jumlahHari * hargaPerHari;
-    
+
+                // Tampilkan format Rupiah
                 totalHargaElement.textContent = 'Rp ' + totalHarga.toLocaleString('id-ID');
-                document.getElementById('input-total-harga').value = totalHarga;
+                inputTotalHarga.value = totalHarga;
             }
-    
-            tanggalMulaiInput.addEventListener('change', calculateTotalPrice);
-            tanggalSelesaiInput.addEventListener('change', calculateTotalPrice);
+
+            // Pasang Listener "input" dan "change" agar lebih responsif
+            if (tanggalMulaiInput && tanggalSelesaiInput && tipeSewaDropdown) {
+                tipeSewaDropdown.addEventListener('change', calculateTotalPrice);
+                
+                tanggalMulaiInput.addEventListener('input', calculateTotalPrice); // Langsung hitung saat pilih tanggal
+                tanggalMulaiInput.addEventListener('change', calculateTotalPrice);
+
+                tanggalSelesaiInput.addEventListener('input', calculateTotalPrice); // Langsung hitung saat pilih tanggal
+                tanggalSelesaiInput.addEventListener('change', calculateTotalPrice);
+                
+                // Jalankan sekali saat halaman dimuat (jika browser mengisi otomatis)
+                calculateTotalPrice();
+            }
         });
     </script>
 @endsection

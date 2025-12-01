@@ -21,6 +21,7 @@ class PenyewaanController extends Controller
             'kota' => 'required|string',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'tipe_sewa' => 'required|string',
             'total_harga' => 'required|numeric',
             'foto_ktp' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'foto_kk' => 'required|image|mimes:jpeg,png,jpg|max:2048',
