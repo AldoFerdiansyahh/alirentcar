@@ -9,22 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('penyewaans', function (Blueprint $table) {
-            // Perintah untuk HAPUS kolom 'tipe_sewa'
-            $table->dropColumn('tipe_sewa');
+            // Menambahkan kolom tipe_sewa setelah kolom tanggal_selesai
+            $table->string('tipe_sewa')->after('tanggal_selesai')->default('lepas_kunci'); 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::table('penyewaans', function (Blueprint $table) {
-            // Perintah untuk MENGEMBALIKAN kolom 'tipe_sewa' jika diperlukan
-            $table->string('tipe_sewa')->after('tanggal_selesai');
+            $table->dropColumn('tipe_sewa');
         });
     }
 };

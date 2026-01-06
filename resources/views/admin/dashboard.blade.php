@@ -3,8 +3,29 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div style="background: #d9252c; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <p>Selamat Datang di Halaman Admin, {{ Auth::user()->name }}!</p>
-        <p>Dari sini Anda bisa mengelola seluruh data website.</p>
+    <div style="
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        min-height: 70vh; 
+        text-align: center;
+    ">
+        
+        {{-- Ikon Admin Besar --}}
+        <div style="font-size: 5rem; color: #d9252c; margin-bottom: 20px;">
+            <i class="fa-solid fa-user-gear"></i>
+        </div>
+
+        {{-- Ucapan Selamat Datang --}}
+        <h1 style="font-size: 2.5rem; font-weight: 700; color: #ffffff; margin-bottom: 10px;">
+            Selamat Datang, {{ Auth::user()->name }}!
+        </h1>
+
+        {{-- Deskripsi Singkat --}}
+        <p style="font-size: 1.1rem; color: #a0aec0; max-width: 600px; line-height: 1.6;">
+            Anda berada di <strong>Dashboard Admin</strong> Ali Rent Car. <br>
+            Silakan gunakan menu di samping untuk mengelola data mobil dan pelanggan.
+        </p>
     </div>
 @endsection

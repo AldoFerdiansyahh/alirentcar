@@ -31,6 +31,11 @@
                     <i class="fa-solid fa-users"></i>
                     <span>Data Pelanggan</span>
                 </a>
+                {{-- MENU BARU: LAPORAN --}}
+                <a href="{{ route('admin.laporan') }}" class="nav-link {{ request()->routeIs('admin.laporan') ? 'active' : '' }}">
+                    <i class="fa-solid fa-chart-line"></i> {{-- Ikon Grafik --}}
+                    <span>Laporan</span>
+                </a>
             </nav>
             <div class="sidebar-footer">
                 <form method="POST" action="{{ route('logout') }}">
